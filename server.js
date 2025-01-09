@@ -10,12 +10,12 @@ const prisma = new PrismaClient();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000', // Next.js frontend URL
+    origin: process.env.FRONTEND_URL, // Next.js frontend URL
     methods: ['GET', 'POST'],
   },
 });
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
@@ -80,5 +80,5 @@ io.on('connection', (socket) => {
 
 // Start the server
 server.listen(PORT, () => {
-  console.log(`Server is running: http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
